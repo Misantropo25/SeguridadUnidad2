@@ -1,20 +1,37 @@
 <?php
-session_start();
+session_start(); // Iniciamos la sesión para obtener los datos del usuario
 
-if (!isset($_SESSION["nombre_usuario"])) {
+// Si el usuario no está logueado, lo redirigimos al formulario de acceso
+if(!isset($_SESSION['id_usuario'])) {
   header("Location: index.php");
-  exit;
+  exit();
 }
 
-$nombre_usuario = $_SESSION["nombre_usuario"];
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Seguridad</title>
+  <meta charset="UTF-8">
+  <title>Página segura</title>
+  <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-  <h1>Bienvenido, <?php echo $nombre_usuario; ?>!</h1>
+
+  <h1>Bienvenido, <?php echo $_SESSION['nombre_usuario']; ?>!</h1>
+
+  <p>Aquí podrás ver tus datos:</p>
+
+  <ul>
+    <li>Usuario: <?php echo $_SESSION['nombre_usuario']; ?></li>
+    <li>ID de usuario: <?php echo $_SESSION['id_usuario']; ?></li>
+  </ul>
+
+  <form method="post" action="index.php">
+
+    <button type="submit" name="logout">Cerrar sesión</button>
+
+  </form>
+
 </body>
 </html>
